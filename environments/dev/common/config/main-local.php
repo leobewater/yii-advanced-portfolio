@@ -4,7 +4,7 @@ return [
     'components' => [
         'db' => [
             'class' => \yii\db\Connection::class,
-            'dsn' => 'mysql:host=localhost:6333;dbname=yii_portfolio',
+            'dsn' => 'mysql:host=host.docker.internal;dbname=yii_portfolio;port=6333',
             'username' => 'root',
             'password' => 'secret',
             'charset' => 'utf8',
