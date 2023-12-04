@@ -75,9 +75,9 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-              // Test db connection
-        var_dump(Yii::$app->db->schema->getQueryBuilder());
-        die();
+        // Test db connection
+        // var_dump(Yii::$app->db->schema->getQueryBuilder());
+        // die();
         return $this->render('index');
     }
 
