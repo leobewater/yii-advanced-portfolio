@@ -6,7 +6,12 @@ Video: https://www.udemy.com/course/yii-2-from-beginner-to-expert/learn/lecture/
 # Set Dev or Prod env
 > php init
 
-# To Run
-> php yii serve
+# To Run go to project folder
+> docker-compose up
 
+# To view frontend
+> http://127.0.0.1:20080/
+
+# To view backend
+> http://127.0.0.1:21080/
 ```
