@@ -23,4 +23,6 @@ Video: https://www.udemy.com/course/yii-2-from-beginner-to-expert/learn/lecture/
 
 # register a user in frontend, if mail service not set up yet, view the log email file at /frontend/runtime/mail/xxx.eml
 # once registered an account via the frontend, you can also login to the backend
+
+> php yii migrate/create alter_date_columns_in_project_table
 ```
