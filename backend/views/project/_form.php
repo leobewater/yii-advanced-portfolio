@@ -18,10 +18,16 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
 
-    <?= $form->field($model, 'start_date')->textInput() ?>
+    <?= $form->field($model, 'start_date')->widget(\yii\jui\DatePicker::class, [
+        'dateFormat' => 'yyyy-MM-dd',
+        'options' => ['readonly' => true],
+    ]) ?>
 
-    <?= $form->field($model, 'end_date')->textInput() ?>
-
+    <?= $form->field($model, 'end_date')->widget(\yii\jui\DatePicker::class, [
+        'dateFormat' => 'yyyy-MM-dd',
+        'options' => ['readonly' => true],
+    ]) ?>
+    
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
     </div>

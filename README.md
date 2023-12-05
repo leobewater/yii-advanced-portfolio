@@ -27,4 +27,7 @@ Video: https://www.udemy.com/course/yii-2-from-beginner-to-expert/learn/lecture/
 > php yii migrate/create alter_date_columns_in_project_table
 
 # after altering the column data type, need to re-generate the model and crud
+
+# Date Picker
+# https://www.yiiframework.com/extension/yiisoft/yii2-jui/doc/api/2.0/yii-jui-datepicker
 ```
