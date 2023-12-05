@@ -89,7 +89,7 @@ a.desc:after {
     outline: none;
 }
 
-.project-view__image {
+.project-view__image, .project-form__image {
   display:block;
   border:1px solid #ddd;
   margin-bottom:16px;

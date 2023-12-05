@@ -41,7 +41,8 @@ use yii\widgets\ActiveForm;
       foreach($model->images as $image) {
         echo Html::img($image->file->absoluteUrl(), [
           'alt' => 'Demo of the user interface',
-          'height' => 200
+          'height' => 200,
+          'class' => 'project-form__image',
         ]);
       }
     ?>
