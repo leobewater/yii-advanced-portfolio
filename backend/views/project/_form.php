@@ -37,6 +37,14 @@ use yii\widgets\ActiveForm;
         'options' => ['readonly' => true],
     ]) ?>
 
+    <?php        
+      foreach($model->images as $image) {
+        echo Html::img($image->file->absoluteUrl(), [
+          'alt' => 'Demo of the user interface',
+          'height' => 200
+        ]);
+      }
+    ?>
     <?= $form->field($model, 'imageFile')->fileInput(); ?>
 
     <div class="form-group">
