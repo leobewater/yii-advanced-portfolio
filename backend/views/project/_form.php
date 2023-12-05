@@ -37,6 +37,8 @@ use yii\widgets\ActiveForm;
         'options' => ['readonly' => true],
     ]) ?>
 
+    <?= $form->field($model, 'imageFile')->fileInput(); ?>
+
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
     </div>
