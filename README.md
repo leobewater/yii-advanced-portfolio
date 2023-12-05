@@ -25,4 +25,6 @@ Video: https://www.udemy.com/course/yii-2-from-beginner-to-expert/learn/lecture/
 # once registered an account via the frontend, you can also login to the backend
 
 > php yii migrate/create alter_date_columns_in_project_table
+
+# after altering the column data type, need to re-generate the model and crud
 ```
