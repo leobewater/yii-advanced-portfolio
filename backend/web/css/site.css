@@ -88,3 +88,9 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+
+.project-view__image {
+  display:block;
+  border:1px solid #ddd;
+  margin-bottom:16px;
+}

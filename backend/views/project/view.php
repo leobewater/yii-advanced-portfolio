@@ -45,7 +45,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 foreach($model->images as $image) {
                   $imagesHtml .= Html::img($image->file->absoluteUrl(), [
                     'alt' => 'Demo of the user interface',
-                    'height' => 200
+                    'height' => 200,
+                    'class' => 'project-view__image'
                   ]);
                 }
                 return $imagesHtml;
