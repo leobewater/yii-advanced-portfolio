@@ -43,7 +43,7 @@ class Project extends \yii\db\ActiveRecord
             [['tech_stack', 'description'], 'string'],
             [['start_date', 'end_date'], 'safe'],
             [['name'], 'string', 'max' => 255],
-            [['imageFiles'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg, jpeg'],
+            [['imageFiles'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg, jpeg', 'maxFiles' => 10],
         ];
     }
 
@@ -99,25 +99,27 @@ class Project extends \yii\db\ActiveRecord
              * @var $db yii\db\Connection
              */
 
-            // save to file db table
-            $file = new File();
-            $file->name = uniqid(true) . '.' . $this->imageFiles->extension;
-            $file->path_url = Yii::$app->params['uploads']['projects'];
-            $file->base_url = Yii::$app->urlManager->createAbsoluteUrl($file->path_url);
-            $file->mime_type = mime_content_type($this->imageFiles->tempName);
-            $file->save();
+             foreach($this->imageFiles as $imageFile):
+                // save to file db table
+                $file = new File();
+                $file->name = uniqid(true) . '.' . $imageFile->extension;
+                $file->path_url = Yii::$app->params['uploads']['projects'];
+                $file->base_url = Yii::$app->urlManager->createAbsoluteUrl($file->path_url);
+                $file->mime_type = mime_content_type($imageFile->tempName);
+                $file->save();
 
-            // save reference in project image db table
-            $projectImage = new ProjectImage();
-            $projectImage->project_id = $this->id;
-            $projectImage->file_id = $file->id;
-            $projectImage->save();
+                // save reference in project image db table
+                $projectImage = new ProjectImage();
+                $projectImage->project_id = $this->id;
+                $projectImage->file_id = $file->id;
+                $projectImage->save();
 
-            // save the image into /web/uploads/projects
-            // if it's failed, rollback
-            if(!$this->imageFiles->saveAs($file->path_url . '/' . $file->name)) {
-                $db->transaction->rollBack();
-            }
+                // save the image into /web/uploads/projects
+                // if it's failed, rollback
+                if(!$imageFile->saveAs($file->path_url . '/' . $file->name)) {
+                    $db->transaction->rollBack();
+                }
+             endforeach;
         });
     }
 
