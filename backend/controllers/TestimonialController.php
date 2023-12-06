@@ -82,6 +82,7 @@ class TestimonialController extends Controller
                 }
             }
         } else {
+            // when not form submission, by default get the project_id from url param
             $model->project_id = $this->request->get('project_id');
             $model->loadDefaultValues();
         }
