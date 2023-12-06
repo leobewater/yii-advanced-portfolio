@@ -94,3 +94,7 @@ a.desc:after {
   border:1px solid #ddd;
   margin-bottom:16px;
 }
+
+.project-form__image-container {
+  margin-bottom:10px;
+}
