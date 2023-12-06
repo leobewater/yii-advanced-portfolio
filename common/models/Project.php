@@ -102,7 +102,8 @@ class Project extends \yii\db\ActiveRecord
             // save to file db table
             $file = new File();
             $file->name = uniqid(true) . '.' . $this->imageFile->extension;
-            $file->base_url = Yii::$app->urlManager->createAbsoluteUrl(Yii::$app->params['uploads']['projects']);
+            $file->path_url = Yii::$app->params['uploads']['projects'];
+            $file->base_url = Yii::$app->urlManager->createAbsoluteUrl($file->path_url);
             $file->mime_type = mime_content_type($this->imageFile->tempName);
             $file->save();
 
@@ -114,7 +115,7 @@ class Project extends \yii\db\ActiveRecord
 
             // save the image into /web/uploads/projects
             // if it's failed, rollback
-            if(!$this->imageFile->saveAs(Yii::$app->params['uploads']['projects'] . '/' . $file->name)) {
+            if(!$this->imageFile->saveAs($file->path_url . '/' . $file->name)) {
                 $db->transaction->rollBack();
             }
         });
