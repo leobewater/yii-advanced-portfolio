@@ -30,4 +30,6 @@ Video: https://www.udemy.com/course/yii-2-from-beginner-to-expert/learn/lecture/
 
 # Date Picker
 # https://www.yiiframework.com/extension/yiisoft/yii2-jui/doc/api/2.0/yii-jui-datepicker
+
+> php yii migrate/create add_path_url_columns_to_file_table --fields="path_url:string"
 ```
