@@ -23,7 +23,8 @@
         "ext-fileinfo": "*",
         "kartik-v/yii2-widget-fileinput": "dev-master",
         "ext-json": "*",
-        "yiisoft/yii2-imagine": "^2.3"
+        "yiisoft/yii2-imagine": "^2.3",
+        "kartik-v/yii2-widget-rating": "dev-master"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.1.0",
