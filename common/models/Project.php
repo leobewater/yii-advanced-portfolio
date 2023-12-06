@@ -4,6 +4,7 @@ namespace common\models;
 
 use Yii;
 use yii\web\UploadedFile;
+use yii\imagine\Image;
 
 /**
  * This is the model class for table "project".
@@ -99,7 +100,11 @@ class Project extends \yii\db\ActiveRecord
              * @var $db yii\db\Connection
              */
 
-             foreach($this->imageFiles as $imageFile):
+            foreach($this->imageFiles as $imageFile):
+                /**
+                 * @var $imageFile UploadedFile
+                 */
+
                 // save to file db table
                 $file = new File();
                 $file->name = uniqid(true) . '.' . $imageFile->extension;
@@ -114,38 +119,47 @@ class Project extends \yii\db\ActiveRecord
                 $projectImage->file_id = $file->id;
                 $projectImage->save();
 
+                // resize image with height 1080 
+                $thumbnail = Image::thumbnail($imageFile->tempName, null, 1080);
+                //->save(Yii::getAlias('@runtime/thumb-test-image.jpg'), ['quality' => 50]);
+
                 // save the image into /web/uploads/projects
                 // if it's failed, rollback
-                if(!$imageFile->saveAs($file->path_url . '/' . $file->name)) {
+                // if(!$imageFile->saveAs($file->path_url . '/' . $file->name)) {
+                if(!$thumbnail->save($file->path_url . '/' . $file->name)) {
                     $db->transaction->rollBack();
                 }
-             endforeach;
+            endforeach;
         });
     }
 
-    public function hasImages() {
-      return count($this->images) > 0;
+    public function hasImages()
+    {
+        return count($this->images) > 0;
     }
 
-    public function imageAbsoluteUrls() {
-      $urls = [];
-      foreach($this->images as $image) {
-        $urls[] = $image->file->absoluteUrl();
-      }
-      return $urls;
+    public function imageAbsoluteUrls()
+    {
+        $urls = [];
+        foreach($this->images as $image) {
+            $urls[] = $image->file->absoluteUrl();
+        }
+        return $urls;
     }
 
-    public function imageConfigs() {
-      $configs = [];
-      foreach($this->images as $image) {
-        $configs[] = [
-          'key' => $image->id,
-        ];
-      }
-      return $configs;
+    public function imageConfigs()
+    {
+        $configs = [];
+        foreach($this->images as $image) {
+            $configs[] = [
+              'key' => $image->id,
+            ];
+        }
+        return $configs;
     }
 
-    public function loadUploadedImageFiles() {
-      $this->imageFiles = UploadedFile::getInstances($this, 'imageFiles');
+    public function loadUploadedImageFiles()
+    {
+        $this->imageFiles = UploadedFile::getInstances($this, 'imageFiles');
     }
-  }
+}
