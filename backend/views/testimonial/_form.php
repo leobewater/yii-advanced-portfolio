@@ -1,6 +1,8 @@
 <?php
 
+use kartik\file\FileInput;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
@@ -15,7 +17,18 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'project_id')->dropDownList($projects, ['prompt' => Yii::t('app', 'Select...')]) ?>
 
-    <?= $form->field($model, 'customer_image_id')->textInput() ?>
+    <?php // using 3rd party plugin https://demos.krajee.com/widget-details/fileinput ?>
+    <?= $form->field($model, 'imageFile')->widget(FileInput::class, [
+      'options' => ['accept' => 'image/*' ],
+      'pluginOptions' => [
+        'initialPreview' => $model->imageAbsoluteUrl(),
+        'initialPreviewAsData'=>true,
+        'showUpload' => false,
+        'initialPreviewConfig' => $model->imageConfig(),
+      ]
+    ]); ?>
+
+    <!-- <?= $form->field($model, 'customer_image_id')->textInput() ?> -->
 
     <?= $form->field($model, 'title')->textInput(['maxlength' => true]) ?>
 

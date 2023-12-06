@@ -127,4 +127,13 @@ class Testimonial extends \yii\db\ActiveRecord
 
         return true;
     }
+
+    public function imageAbsoluteUrl()
+    {
+      return $this->customerImage ? $this->customerImage->absoluteUrl() : [];
+    }
+
+    public function imageConfig() {
+      return $this->cutomerImage ? [['key' => $this->cutomerImage->id]] : [];
+    }
 }

@@ -73,8 +73,12 @@ class TestimonialController extends Controller
         $model = new Testimonial();
 
         if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+            if ($model->load($this->request->post())) {
+                // save image then save testimonial
+                $model->loadUploadedImageFile();
+                if($model->saveImage() && $model->save()) {
+                    return $this->redirect(['view', 'id' => $model->id]);
+                }
             }
         } else {
             $model->loadDefaultValues();
@@ -97,8 +101,12 @@ class TestimonialController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($this->request->isPost && $model->load($this->request->post())) {
+            // save image then save testimonial
+            $model->loadUploadedImageFile();
+            if($model->saveImage() && $model->save()) {
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
 
         return $this->render('update', [
@@ -139,6 +147,6 @@ class TestimonialController extends Controller
 
     private function loadProjects()
     {
-      return ArrayHelper::map(Project::find()->asArray()->all(), 'id', 'name');
+        return ArrayHelper::map(Project::find()->asArray()->all(), 'id', 'name');
     }
 }
