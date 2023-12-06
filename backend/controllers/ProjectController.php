@@ -4,6 +4,7 @@ namespace backend\controllers;
 
 use common\models\Project;
 use backend\models\ProjectSearch;
+use common\models\ProjectImage;
 use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -26,7 +27,8 @@ class ProjectController extends Controller
                 'verbs' => [
                     'class' => VerbFilter::class,
                     'actions' => [
-                        'delete' => ['POST'],
+                        'delete' => ['POST'], // set the verb for actionDelete to POST
+                        'delete-project-image' => ['POST']
                     ],
                 ],
             ]
@@ -104,15 +106,15 @@ class ProjectController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post())) {
-          $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
-          if($model->save()) {
-              // save image file
-              $model->saveImage();
+            $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+            if($model->save()) {
+                // save image file
+                $model->saveImage();
 
-              // flash message
-              Yii::$app->session->setFlash('success', 'Successfully updated');
-              return $this->redirect(['view', 'id' => $model->id]);
-          }
+                // flash message
+                Yii::$app->session->setFlash('success', 'Successfully updated');
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         }
 
         return $this->render('update', [
@@ -132,6 +134,21 @@ class ProjectController extends Controller
         $this->findModel($id)->delete();
 
         return $this->redirect(['index']);
+    }
+
+    // using POST for ajax
+    public function actionDeleteProjectImage()
+    {
+        $image = ProjectImage::findOne($this->request->post('id'));
+        if(!$image) {
+            throw new NotFoundHttpException();
+        }
+
+        if($image->file->delete()) {
+          // delete image file 
+          $path = Yii::$app->params['uploads']['projects'] . '/' . $image->file->name;
+          unlink($path);
+        }
     }
 
     /**
