@@ -7,6 +7,12 @@ use yii\widgets\ActiveForm;
 /** @var yii\web\View $this */
 /** @var common\models\Project $model */
 /** @var yii\widgets\ActiveForm $form */
+
+// load js file
+$this->registerJsFile(
+  '@web/js/projectForm.js',
+  ['depends' => [\yii\web\JqueryAsset::class]]
+);
 ?>
 
 <div class="project-form">
@@ -39,7 +45,7 @@ use yii\widgets\ActiveForm;
 
     <?php        
       foreach($model->images as $image) :?>
-      <div id="project-form__image-container-<?= $image->id ?>">
+      <div id="project-form__image-container-<?= $image->id ?>" class="project-form__image-container">
         <?= Html::img($image->file->absoluteUrl(), [
           'alt' => 'Demo of the user interface',
           'height' => 200,
