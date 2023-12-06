@@ -144,11 +144,8 @@ class ProjectController extends Controller
             throw new NotFoundHttpException();
         }
 
-        if($image->file->delete()) {
-          // delete image file 
-          $path = Yii::$app->params['uploads']['projects'] . '/' . $image->file->name;
-          unlink($path);
-        }
+        // delete the actual image is handled by File model afterDelete()
+        $image->file->delete();
     }
 
     /**

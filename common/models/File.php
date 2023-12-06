@@ -9,6 +9,7 @@ use Yii;
  *
  * @property int $id
  * @property string $name
+ * @property string $path_url
  * @property string $base_url
  * @property string $mime_type
  *
@@ -31,8 +32,8 @@ class File extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['name', 'base_url', 'mime_type'], 'required'],
-            [['name', 'base_url', 'mime_type'], 'string', 'max' => 255],
+            [['name', 'path_url', 'base_url', 'mime_type'], 'required'],
+            [['name', 'path_url', 'base_url', 'mime_type'], 'string', 'max' => 255],
         ];
     }
 
@@ -44,6 +45,7 @@ class File extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'name' => Yii::t('app', 'Name'),
+            'path_url' => Yii::t('app', 'Path Url'),
             'base_url' => Yii::t('app', 'Base Url'),
             'mime_type' => Yii::t('app', 'Mime Type'),
         ];
@@ -69,7 +71,17 @@ class File extends \yii\db\ActiveRecord
         return $this->hasMany(Testimonial::class, ['customer_image_id' => 'id']);
     }
 
-    public function absoluteUrl() {
-      return $this->base_url . '/' . $this->name;
+    public function absoluteUrl()
+    {
+        return $this->base_url . '/' . $this->name;
+    }
+
+    // auto delete image after file record is deleted
+    public function afterDelete()
+    {
+        parent::afterDelete();
+
+        // delete image file
+        unlink($this->path_url . '/' . $this->name);
     }
 }
