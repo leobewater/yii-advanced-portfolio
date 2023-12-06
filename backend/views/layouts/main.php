@@ -41,6 +41,7 @@ AppAsset::register($this);
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
     }     
     $menuItems[] = ['label' => Yii::t('app','Projects'), 'url' => ['/project/index']];
+    $menuItems[] = ['label' => Yii::t('app','Testimonials'), 'url' => ['/testimonial/index']];
 
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav me-auto mb-2 mb-md-0'],
