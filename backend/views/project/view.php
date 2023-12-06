@@ -25,6 +25,10 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ]) ?>
     </p>
+    
+    <p>
+      <?= Html::a(Yii::t('app', 'New Testimonial'), ['testimonial/create', 'project_id' => $model->id]); ?>
+    </p>
 
     <?= DetailView::widget([
         'model' => $model,
@@ -34,22 +38,22 @@ $this->params['breadcrumbs'][] = $this->title;
             [
               'label' => Yii::t('app', 'Images'),
               'format' => 'raw',
-              'value' => function($model) {
-                /**
-                 * @var $model \common\models\Project
-                 */
-                if(!$model->hasImages()) {
-                  return null;
-                }
-                $imagesHtml = "";
-                foreach($model->images as $image) {
-                  $imagesHtml .= Html::img($image->file->absoluteUrl(), [
-                    'alt' => 'Demo of the user interface',
-                    'height' => 200,
-                    'class' => 'project-view__image'
-                  ]);
-                }
-                return $imagesHtml;
+              'value' => function ($model) {
+                  /**
+                   * @var $model \common\models\Project
+                   */
+                  if(!$model->hasImages()) {
+                      return null;
+                  }
+                  $imagesHtml = "";
+                  foreach($model->images as $image) {
+                      $imagesHtml .= Html::img($image->file->absoluteUrl(), [
+                        'alt' => 'Demo of the user interface',
+                        'height' => 200,
+                        'class' => 'project-view__image'
+                      ]);
+                  }
+                  return $imagesHtml;
               }
             ],
             'tech_stack:raw',
