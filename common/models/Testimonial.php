@@ -58,8 +58,8 @@ class Testimonial extends \yii\db\ActiveRecord
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'project_id' => Yii::t('app', 'Project ID'),
-            'customer_image_id' => Yii::t('app', 'Customer Image ID'),
+            'project_id' => Yii::t('app', 'Project'),
+            'customer_image_id' => Yii::t('app', 'Customer Image'),
             'title' => Yii::t('app', 'Title'),
             'customer_name' => Yii::t('app', 'Customer Name'),
             'review' => Yii::t('app', 'Review'),

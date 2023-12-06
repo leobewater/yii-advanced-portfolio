@@ -29,14 +29,40 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             // ['class' => 'yii\grid\SerialColumn'],
             'id',
-            'project_id',
-            'customer_image_id',
+            [
+              // output project name instead of id
+              'attribute' => 'project_id',
+              'format' => 'raw',
+              'value' => function($model) {
+                /**
+                 * @var $model common\models\Testimonial
+                 */
+                return Html::a($model->project->name, ['project/view', 'id' => $model->project_id]);
+              }
+            ],
+            [
+              // output image instead of image id
+              'attribute' => 'customer_image_id',
+              'format' => 'raw',
+              'value' => function($model) {
+                /**
+                 * @var $model common\models\Testimonial
+                 */
+                if(!$model->customerImage) {
+                  return null;
+                }
+                return Html::img($model->customerImage->absoluteUrl(), [
+                  'alt' => $model->customer_name,
+                  'height' => 75,
+                ]);
+              }
+            ],
             'title',
             'customer_name',
             //'review:ntext',
-            //'rating',
+            'rating',
             [
-                'class' => ActionColumn::className(),
+                'class' => ActionColumn::class,
                 'urlCreator' => function ($action, Testimonial $model, $key, $index, $column) {
                     return Url::toRoute([$action, 'id' => $model->id]);
                  }
