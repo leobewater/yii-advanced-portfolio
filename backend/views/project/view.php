@@ -67,9 +67,10 @@ $this->params['breadcrumbs'][] = $this->title;
               'value' => function(Project $model) {
                 $html = "";
                 foreach($model->testimonials as $testimonial){
-                  $html .= '<div>' . $testimonial->title . 
+                  $label = $testimonial->title . 
                   ' | ' . $testimonial->customer_name . 
-                  ' | ' . $testimonial->rating . '</div>';
+                  ' | ' . $testimonial->rating;
+                  $html .= '<div>' . Html::a($label, ['testimonial/view', 'id' => $testimonial->id]) . '</div>';
                 }
                 return $html;
               }
