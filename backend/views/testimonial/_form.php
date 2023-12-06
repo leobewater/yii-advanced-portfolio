@@ -13,7 +13,7 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'project_id')->dropDownList($projects) ?>
+    <?= $form->field($model, 'project_id')->dropDownList($projects, ['prompt' => Yii::t('app', 'Select...')]) ?>
 
     <?= $form->field($model, 'customer_image_id')->textInput() ?>
 
