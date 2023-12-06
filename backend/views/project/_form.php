@@ -46,15 +46,15 @@ $this->registerJsFile(
     ]) ?>
 
     <?php // using 3rd party plugin https://demos.krajee.com/widget-details/fileinput ?>
-    <?= $form->field($model, 'imageFile[]')->widget(FileInput::class, [
-      'options' => ['accept' => 'image/*'],
+    <?= $form->field($model, 'imageFiles[]')->widget(FileInput::class, [
+      'options' => ['accept' => 'image/*', 'multiple' => true ],
       'pluginOptions' => [
         'initialPreview' => $model->imageAbsoluteUrls(),
         'initialPreviewAsData'=>true,
         'showUpload' => false,
         'deleteUrl' => Url::to(['project/delete-project-image']),
         'initialPreviewConfig' => $model->imageConfigs(),
-  ]
+      ]
     ]); ?>
     
     <?php 
@@ -76,7 +76,7 @@ $this->registerJsFile(
       </div>
     <?php endforeach; ?>
     
-    <?= $form->field($model, 'imageFile')->fileInput(); ?>
+    <?= $form->field($model, 'imageFiles')->fileInput(); ?>
     <?php */ ?>
 
     <div class="form-group">

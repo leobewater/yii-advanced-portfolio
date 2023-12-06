@@ -23,7 +23,7 @@ class Project extends \yii\db\ActiveRecord
     /**
      * @var UploadedFile
      */
-    public $imageFile;
+    public $imageFiles;
 
     /**
      * {@inheritdoc}
@@ -43,7 +43,7 @@ class Project extends \yii\db\ActiveRecord
             [['tech_stack', 'description'], 'string'],
             [['start_date', 'end_date'], 'safe'],
             [['name'], 'string', 'max' => 255],
-            [['imageFile'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg, jpeg'],
+            [['imageFiles'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg, jpeg'],
         ];
     }
 
@@ -91,7 +91,7 @@ class Project extends \yii\db\ActiveRecord
         return new ProjectQuery(get_called_class());
     }
 
-    public function saveImage()
+    public function saveImages()
     {
         // use db transaction
         Yii::$app->db->transaction(function ($db) {
@@ -101,10 +101,10 @@ class Project extends \yii\db\ActiveRecord
 
             // save to file db table
             $file = new File();
-            $file->name = uniqid(true) . '.' . $this->imageFile->extension;
+            $file->name = uniqid(true) . '.' . $this->imageFiles->extension;
             $file->path_url = Yii::$app->params['uploads']['projects'];
             $file->base_url = Yii::$app->urlManager->createAbsoluteUrl($file->path_url);
-            $file->mime_type = mime_content_type($this->imageFile->tempName);
+            $file->mime_type = mime_content_type($this->imageFiles->tempName);
             $file->save();
 
             // save reference in project image db table
@@ -115,7 +115,7 @@ class Project extends \yii\db\ActiveRecord
 
             // save the image into /web/uploads/projects
             // if it's failed, rollback
-            if(!$this->imageFile->saveAs($file->path_url . '/' . $file->name)) {
+            if(!$this->imageFiles->saveAs($file->path_url . '/' . $file->name)) {
                 $db->transaction->rollBack();
             }
         });
@@ -142,4 +142,8 @@ class Project extends \yii\db\ActiveRecord
       }
       return $configs;
     }
-}
+
+    public function loadUploadedImageFiles() {
+      $this->imageFiles = UploadedFile::getInstances($this, 'imageFiles');
+    }
+  }

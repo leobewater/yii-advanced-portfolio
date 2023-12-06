@@ -75,10 +75,11 @@ class ProjectController extends Controller
 
         if ($this->request->isPost) {
             if ($model->load($this->request->post())) {
-                $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+                $model->loadUploadedImageFiles();
+
                 if($model->save()) {
                     // save image file
-                    $model->saveImage();
+                    $model->saveImages();
 
                     // flash message
                     Yii::$app->session->setFlash('success', 'Successfully saved');
@@ -106,10 +107,10 @@ class ProjectController extends Controller
         $model = $this->findModel($id);
 
         if ($this->request->isPost && $model->load($this->request->post())) {
-            $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+            $model->loadUploadedImageFiles();
             if($model->save()) {
                 // save image file
-                $model->saveImage();
+                $model->saveImages();
 
                 // flash message
                 Yii::$app->session->setFlash('success', 'Successfully updated');
@@ -139,7 +140,7 @@ class ProjectController extends Controller
     // using POST for ajax
     public function actionDeleteProjectImage()
     {
-//        $image = ProjectImage::findOne($this->request->post('id'));
+        //        $image = ProjectImage::findOne($this->request->post('id'));
         $image = ProjectImage::findOne($this->request->post('key'));
         if(!$image) {
             throw new NotFoundHttpException();
@@ -147,8 +148,8 @@ class ProjectController extends Controller
 
         // delete the actual image is handled by File model afterDelete()
         if($image->file->delete()) {
-          // send empty json object since it's required by the 3rd party file-input plugin
-          return json_encode(null);
+            // send empty json object since it's required by the 3rd party file-input plugin
+            return json_encode(null);
         }
         return json_encode(['error' => true]);
     }
