@@ -38,14 +38,25 @@ use yii\widgets\ActiveForm;
     ]) ?>
 
     <?php        
-      foreach($model->images as $image) {
-        echo Html::img($image->file->absoluteUrl(), [
+      foreach($model->images as $image) :?>
+      <div id="project-form__image-container-<?= $image->id ?>">
+        <?= Html::img($image->file->absoluteUrl(), [
           'alt' => 'Demo of the user interface',
           'height' => 200,
           'class' => 'project-form__image',
-        ]);
-      }
-    ?>
+        ]); ?>
+
+        <?= Html::button(Yii::t('app', 'Delete'), [
+          'class' => 'btn btn-danger btn-delete-project',
+          'data-project-image-id' => $image->id
+        ]); ?>
+
+        <div id="project-form__image-error-message-<?= $image->id ?>" class="text-danger"></div>
+      </div>
+    <?php endforeach; ?>
+    
+
+    
     <?= $form->field($model, 'imageFile')->fileInput(); ?>
 
     <div class="form-group">
