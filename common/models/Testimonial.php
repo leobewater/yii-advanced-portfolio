@@ -41,7 +41,7 @@ class Testimonial extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['project_id', 'customer_image_id', 'title', 'customer_name', 'review', 'rating'], 'required'],
+            [['project_id', 'title', 'customer_name', 'review', 'rating'], 'required'],
             [['project_id', 'customer_image_id', 'rating'], 'integer'],
             [['review'], 'string'],
             [['title', 'customer_name'], 'string', 'max' => 255],
