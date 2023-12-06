@@ -47,7 +47,7 @@ class Testimonial extends \yii\db\ActiveRecord
             [['title', 'customer_name'], 'string', 'max' => 255],
             // [['customer_image_id'], 'exist', 'skipOnError' => true, 'targetClass' => File::class, 'targetAttribute' => ['customer_image_id' => 'id']],
             [['project_id'], 'exist', 'skipOnError' => true, 'targetClass' => Project::class, 'targetAttribute' => ['project_id' => 'id']],
-            [['imageFile'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg, jpeg']
+            [['imageFile'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg']
         ];
     }
 
@@ -95,45 +95,48 @@ class Testimonial extends \yii\db\ActiveRecord
 
     public function saveImage()
     {
-        $db = Yii::$app->db;
-        $transcation = $db->beginTransaction();
+        if ($this->imageFile) {
 
-        try {
-            $file = new File();
-            $file->name = uniqid(true) . '.' . $this->imageFile->extension;
-            $file->path_url = Yii::$app->params['uploads']['testimonials'];
-            $file->base_url = Yii::$app->urlManager->createAbsoluteUrl($file->path_url);
-            $file->mime_type = mime_content_type($this->imageFile->tempName);
-            $file->save();
+            $db = Yii::$app->db;
+            $transcation = $db->beginTransaction();
 
-            $this->customer_image_id = $file->id;
+            try {
+                $file = new File();
+                $file->name = uniqid(true) . '.' . $this->imageFile->extension;
+                $file->path_url = Yii::$app->params['uploads']['testimonials'];
+                $file->base_url = Yii::$app->urlManager->createAbsoluteUrl($file->path_url);
+                $file->mime_type = mime_content_type($this->imageFile->tempName);
+                $file->save();
 
-            // resize image
-            $thumbnail = Image::thumbnail($this->imageFile->tempName, null, 1080);
-            $didSave = $thumbnail->save($file->path_url . '/' . $file->name);
-            if(!$didSave) {
-                $this->addError('imageFile', Yii::t('app', 'Failed to save image'));
+                $this->customer_image_id = $file->id;
+
+                // resize image
+                $thumbnail = Image::thumbnail($this->imageFile->tempName, null, 1080);
+                $didSave = $thumbnail->save($file->path_url . '/' . $file->name);
+                if(!$didSave) {
+                    $this->addError('imageFile', Yii::t('app', 'Failed to save image'));
+                    return false;
+                }
+
+                $transcation->commit();
+
+                // } catch(\Exception $e) { // for PHP v5
+            } catch(\Throwable $e) { // for PHP 7.0+
+                $transcation->rollBack();
+                $this->addError('imageFile', Yii::t('app', 'Failed to save image') . '(' . $e->getMessage() . ')');
                 return false;
             }
-
-            $transcation->commit();
-
-        // } catch(\Exception $e) { // for PHP v5
-        } catch(\Throwable $e) { // for PHP 7.0+
-          $transcation->rollBack();
-          $this->addError('imageFile', Yii::t('app', 'Failed to save image') . '('. $e->getMessage() . ')');
-          return false;
         }
-
         return true;
     }
 
     public function imageAbsoluteUrl()
     {
-      return $this->customerImage ? $this->customerImage->absoluteUrl() : [];
+        return $this->customerImage ? $this->customerImage->absoluteUrl() : [];
     }
 
-    public function imageConfig() {
-      return $this->cutomerImage ? [['key' => $this->cutomerImage->id]] : [];
+    public function imageConfig()
+    {
+        return $this->customerImage ? [['key' => $this->customerImage->id]] : [];
     }
 }
