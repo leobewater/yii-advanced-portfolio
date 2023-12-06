@@ -139,4 +139,26 @@ class Testimonial extends \yii\db\ActiveRecord
     {
         return $this->customerImage ? [['key' => $this->customerImage->id]] : [];
     }
+
+    // auto delete image after the testimonial record is deleted
+    public function delete()
+    {
+        /**
+         * @var $db yii\db\Connection
+         */
+        $db = Yii::$app->db;
+
+        $transaction = $db->beginTransaction();
+
+        try {
+            parent::deleteInternal();
+            $this->customerImage->deleteInternal();
+            $transaction->commit();
+            return true;
+        } catch(\Throwable $e) {
+            $transaction->rollBack();
+            Yii::$app->session->setFlash('danger', Yii::t('app', 'Failed to delete'));
+            return false;
+        }
+    }
 }
