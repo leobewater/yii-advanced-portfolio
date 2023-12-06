@@ -162,4 +162,26 @@ class Project extends \yii\db\ActiveRecord
     {
         $this->imageFiles = UploadedFile::getInstances($this, 'imageFiles');
     }
+
+    // override delete method
+    // when delete a project, delete all the associated files, images and image files
+    public function delete() {
+        $db = Yii::$app->db;
+        $transaction = $db->beginTransaction();
+
+        try {
+            foreach($this->images as $image) {
+              // this auto deletes the project image due to db fk set up
+              $image->file->deleteInternal();
+            }
+
+            parent::deleteInternal();
+            $transaction->commit();
+            return true;
+        } catch(\Throwable $e) {
+            $transaction->rollBack();
+            Yii::$app->session->setFlash('danger', Yii::t('app', 'Failed to delete'));
+            return false;
+        }
+    }
 }
