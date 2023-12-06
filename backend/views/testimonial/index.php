@@ -9,6 +9,7 @@ use yii\grid\GridView;
 /** @var yii\web\View $this */
 /** @var backend\models\TestimonialSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
+/** @var common\models\Project[] $projects */
 
 $this->title = Yii::t('app', 'Testimonials');
 $this->params['breadcrumbs'][] = $this->title;
@@ -33,6 +34,7 @@ $this->params['breadcrumbs'][] = $this->title;
               // output project name instead of id
               'attribute' => 'project_id',
               'format' => 'raw',
+              'filter' => $projects,
               'value' => function($model) {
                 /**
                  * @var $model common\models\Testimonial

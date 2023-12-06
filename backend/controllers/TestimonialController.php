@@ -48,6 +48,7 @@ class TestimonialController extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'projects' => ArrayHelper::map(Project::find()->all(), 'id', 'name'),
         ]);
     }
 
