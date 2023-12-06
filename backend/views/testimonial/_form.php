@@ -25,6 +25,7 @@ use yii\widgets\ActiveForm;
         'initialPreviewAsData'=>true,
         'showUpload' => false,
         'initialPreviewConfig' => $model->imageConfig(),
+        'deleteUrl' => Url::to(['testimonial/delete-customer-image'])
       ]
     ]); ?>
 
