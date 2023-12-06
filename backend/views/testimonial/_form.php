@@ -6,13 +6,14 @@ use yii\widgets\ActiveForm;
 /** @var yii\web\View $this */
 /** @var common\models\Testimonial $model */
 /** @var yii\widgets\ActiveForm $form */
+/** @var array $projects */
 ?>
 
 <div class="testimonial-form">
 
     <?php $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'project_id')->textInput() ?>
+    <?= $form->field($model, 'project_id')->dropDownList($projects) ?>
 
     <?= $form->field($model, 'customer_image_id')->textInput() ?>
 
