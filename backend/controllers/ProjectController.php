@@ -139,13 +139,18 @@ class ProjectController extends Controller
     // using POST for ajax
     public function actionDeleteProjectImage()
     {
-        $image = ProjectImage::findOne($this->request->post('id'));
+//        $image = ProjectImage::findOne($this->request->post('id'));
+        $image = ProjectImage::findOne($this->request->post('key'));
         if(!$image) {
             throw new NotFoundHttpException();
         }
 
         // delete the actual image is handled by File model afterDelete()
-        $image->file->delete();
+        if($image->file->delete()) {
+          // send empty json object since it's required by the 3rd party file-input plugin
+          return json_encode(null);
+        }
+        return json_encode(['error' => true]);
     }
 
     /**

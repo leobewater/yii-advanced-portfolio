@@ -124,4 +124,22 @@ class Project extends \yii\db\ActiveRecord
     public function hasImages() {
       return count($this->images) > 0;
     }
+
+    public function imageAbsoluteUrls() {
+      $urls = [];
+      foreach($this->images as $image) {
+        $urls[] = $image->file->absoluteUrl();
+      }
+      return $urls;
+    }
+
+    public function imageConfigs() {
+      $configs = [];
+      foreach($this->images as $image) {
+        $configs[] = [
+          'key' => $image->id,
+        ];
+      }
+      return $configs;
+    }
 }

@@ -1,7 +1,9 @@
 <?php
 
 use kartik\editors\Summernote;
+use kartik\file\FileInput;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 
 /** @var yii\web\View $this */
@@ -43,7 +45,20 @@ $this->registerJsFile(
         'options' => ['readonly' => true],
     ]) ?>
 
-    <?php        
+    <?php // using 3rd party plugin https://demos.krajee.com/widget-details/fileinput ?>
+    <?= $form->field($model, 'imageFile[]')->widget(FileInput::class, [
+      'options' => ['accept' => 'image/*'],
+      'pluginOptions' => [
+        'initialPreview' => $model->imageAbsoluteUrls(),
+        'initialPreviewAsData'=>true,
+        'showUpload' => false,
+        'deleteUrl' => Url::to(['project/delete-project-image']),
+        'initialPreviewConfig' => $model->imageConfigs(),
+  ]
+    ]); ?>
+    
+    <?php 
+    /*      
       foreach($model->images as $image) :?>
       <div id="project-form__image-container-<?= $image->id ?>" class="project-form__image-container">
         <?= Html::img($image->file->absoluteUrl(), [
@@ -61,9 +76,8 @@ $this->registerJsFile(
       </div>
     <?php endforeach; ?>
     
-
-    
     <?= $form->field($model, 'imageFile')->fileInput(); ?>
+    <?php */ ?>
 
     <div class="form-group">
         <?= Html::submitButton(Yii::t('app', 'Save'), ['class' => 'btn btn-success']) ?>
