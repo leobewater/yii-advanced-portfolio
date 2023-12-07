@@ -1,11 +1,13 @@
 <?php
 
+use kartik\rating\StarRating;
 use yii\bootstrap5\Carousel;
 use yii\helpers\Html;
-use yii\widgets\DetailView;
+use yii\widgets\ListView;
 
 /** @var yii\web\View $this */
 /** @var common\models\Project $model */
+/** @var yii\data\ActivateDataProvider $dataProvider */
 
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Projects'), 'url' => ['index']];
@@ -39,16 +41,16 @@ $this->params['breadcrumbs'][] = $this->title;
   <?php if($model->testimonials): ?>
     <h2><?= Yii::t('app', 'Testimonials'); ?></h2>
   
+    <?= ListView::widget([
+      'dataProvider' => $dataProvider,
+      'itemOptions' => ['class' => 'testimonial'],
+      'itemView' => '_testimonial',
+      'layout' => "{items}\n{pager}"
+    ]); 
+    ?>
+    
     <?php foreach($model->testimonials as $testimonial): ?>
-      <div class="project-view__testimonials">
-        <?php if($testimonial->customerImage) {
-          echo Html::img($testimonial->customerImage->absoluteUrl(), [
-            'class' => 'project-view__testimonial-image'
-          ]);
-        }
-        ?>
-        <?= $testimonial->customer_name; ?>
-      </div>
+      
     <?php endforeach; ?>
   <?php endif; ?>
 
