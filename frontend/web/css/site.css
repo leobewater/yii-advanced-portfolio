@@ -125,4 +125,15 @@ a.desc:after {
 
 .project__image {
   width:100%;
+  border-radius: 10px;
+}
+
+.project__link {
+  text-decoration: none;
+  color: #000;
+}
+
+.project__link:hover {
+  text-decoration: underline;
+  color: #000;
 }
