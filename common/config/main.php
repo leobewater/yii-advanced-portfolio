@@ -11,6 +11,10 @@ return [
         ],
         'formatter' => [
           'dateFormat' => 'yyyy-MM-dd'
+        ],
+        // Append timestamp when loading css files in FE and BE
+        'assetManager' => [
+          'appendTimestamp' => true
         ]
     ],
 ];
