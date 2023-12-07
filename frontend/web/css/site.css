@@ -117,3 +117,12 @@ a.desc:after {
     font-size:3rem;
   }
 }
+
+.project {
+  max-width:300px;
+  margin-bottom: 3rem;
+}
+
+.project__image {
+  width:100%;
+}
