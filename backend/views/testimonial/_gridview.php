@@ -10,6 +10,7 @@ use yii\grid\GridView;
 /** @var backend\models\TestimonialSearch $searchModel */
 /** @var yii\data\ActiveDataProvider $dataProvider */
 /** @var common\models\Project[] $projects */
+/** @var boolean $isProjectColumnVisible */
 ?>
 
 <?= GridView::widget([
@@ -23,6 +24,7 @@ use yii\grid\GridView;
           'attribute' => 'project_id',
           'format' => 'raw',
           'filter' => $projects,
+          'visible' => $isProjectColumnVisible,
           'value' => function($model) {
             /**
              * @var $model common\models\Testimonial

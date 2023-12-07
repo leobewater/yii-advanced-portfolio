@@ -25,7 +25,8 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= $this->render('_gridview', [
       'searchModel' => $searchModel,
       'dataProvider' =>  $dataProvider,
-      'projects' => $projects
+      'projects' => $projects,
+      'isProjectColumnVisible' => true,
     ]); ?>
 
 </div>
