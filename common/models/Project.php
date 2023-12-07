@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\helpers\Html;
 use yii\web\UploadedFile;
 use yii\imagine\Image;
 
@@ -183,5 +184,15 @@ class Project extends \yii\db\ActiveRecord
             Yii::$app->session->setFlash('danger', Yii::t('app', 'Failed to delete'));
             return false;
         }
+    }
+
+    public function carouselImages()
+    {
+      return array_map(function($projectImage){
+        return Html::img($projectImage->file->absoluteUrl(), [
+          'alt' => $this->name,
+          'class' => 'project-view__carousel-images'
+        ]);
+      }, $this->images);
     }
 }

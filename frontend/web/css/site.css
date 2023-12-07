@@ -149,3 +149,7 @@ a.desc:after {
 .project-view__dates, .project-view__tech-stack, .project-view__description {
   margin-bottom: 16px;
 }
+
+.project-view__carousel {
+  margin-bottom:32px;
+}

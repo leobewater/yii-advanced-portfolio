@@ -1,5 +1,6 @@
 <?php
 
+use yii\bootstrap5\Carousel;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
@@ -18,6 +19,13 @@ $this->params['breadcrumbs'][] = $this->title;
   <div class="project-view__dates">
     <?= $model->start_date . ' ' . Yii::t('app', 'to') . ' ' . $model->end_date; ?>
   </div>
+
+  <?php
+  echo Carousel::widget([
+    'items' => $model->carouselImages(),
+    'options' =>['class'=> 'project-view__carousel'],
+  ]);
+  ?>
 
   <div class="project-view__tech-stack">
     <span class="fw-bold"><?= Yii::t('app', 'Tech stack'); ?>: </span>
