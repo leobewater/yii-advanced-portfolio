@@ -18,10 +18,10 @@ $this->title = Yii::$app->name . ' - My Portfolio';
             ?>
 
             <h1 class="site-index__h1"><?= Yii::t('app', 'Hi, my name is Luis'); ?></h1>
-            
+
             <p class="lead"><?= Yii::t('app', 'You have successfully created your Yii-powered application.'); ?></p>
 
-            <p><a class="btn btn-lg btn-success" href="https://www.yiiframework.com">Get started with Yii</a></p>
+            <p><?= Html::a(Yii::t('app', 'See my work'), ['/project'], ['class' => 'btn btn-primary']); ?></p>
         </div>
     </div>
 
