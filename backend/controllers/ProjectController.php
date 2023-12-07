@@ -4,11 +4,13 @@ namespace backend\controllers;
 
 use common\models\Project;
 use backend\models\ProjectSearch;
+use backend\models\TestimonialSearch;
 use common\models\ProjectImage;
 use Yii;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
 use yii\web\UploadedFile;
 
 /**
@@ -59,8 +61,15 @@ class ProjectController extends Controller
      */
     public function actionView($id)
     {
+        $searchModel = new TestimonialSearch();
+        $searchModel->project_id = $id; // limit to show only this project's testimonials
+        $dataProvider = $searchModel->search($this->request->queryParams);
+
         return $this->render('view', [
             'model' => $this->findModel($id),
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'projects' => ArrayHelper::map(Project::find()->all(), 'id', 'name'),
         ]);
     }
 

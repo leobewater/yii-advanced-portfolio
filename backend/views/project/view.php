@@ -61,21 +61,28 @@ $this->params['breadcrumbs'][] = $this->title;
             'description:raw',
             'start_date',
             'end_date',
-            [
-              'label' => Yii::t('app', 'Testimonials'),
-              'format' => 'raw',
-              'value' => function(Project $model) {
-                $html = "";
-                foreach($model->testimonials as $testimonial){
-                  $label = $testimonial->title . 
-                  ' | ' . $testimonial->customer_name . 
-                  ' | ' . $testimonial->rating;
-                  $html .= '<div>' . Html::a($label, ['testimonial/view', 'id' => $testimonial->id]) . '</div>';
-                }
-                return $html;
-              }
-            ]
+            // [
+            //   'label' => Yii::t('app', 'Testimonials'),
+            //   'format' => 'raw',
+            //   'value' => function(Project $model) {
+            //     $html = "";
+            //     foreach($model->testimonials as $testimonial){
+            //       $label = $testimonial->title . 
+            //       ' | ' . $testimonial->customer_name . 
+            //       ' | ' . $testimonial->rating;
+            //       $html .= '<div>' . Html::a($label, ['testimonial/view', 'id' => $testimonial->id]) . '</div>';
+            //     }
+            //     return $html;
+            //   }
+            // ]
         ],
     ]) ?>
-
+    
+    <?php // load testimonial grid view ?>
+    <?= $this->render('/testimonial/_gridview', [
+            'searchModel' => $searchModel,
+            'dataProvider' =>  $dataProvider,
+            'projects' => $projects
+        ]); 
+    ?>
 </div>
