@@ -36,4 +36,20 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= $model->description ?>
   </div>
 
+  <?php if($model->testimonials): ?>
+    <h2><?= Yii::t('app', 'Testimonials'); ?></h2>
+  
+    <?php foreach($model->testimonials as $testimonial): ?>
+      <div class="project-view__testimonials">
+        <?php if($testimonial->customerImage) {
+          echo Html::img($testimonial->customerImage->absoluteUrl(), [
+            'class' => 'project-view__testimonial-image'
+          ]);
+        }
+        ?>
+        <?= $testimonial->customer_name; ?>
+      </div>
+    <?php endforeach; ?>
+  <?php endif; ?>
+
 </div>
