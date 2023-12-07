@@ -21,7 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'itemOptions' => ['class' => 'project'],
         'itemView' => '_project',
-        'layout' => "{items}\n{pager}",
+        'layout' => "<div class='project-items'>{items}</div>\n{pager}",
     ]) ?>
 
 

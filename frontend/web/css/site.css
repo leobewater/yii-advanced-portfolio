@@ -121,11 +121,14 @@ a.desc:after {
 .project {
   max-width:300px;
   margin-bottom: 3rem;
+  margin-right: 28px;
 }
 
 .project__image {
-  width:100%;
+  width: 100%;
   border-radius: 10px;
+  height: 200px;
+  object-fit: cover;
 }
 
 .project__link {
@@ -136,4 +139,9 @@ a.desc:after {
 .project__link:hover {
   text-decoration: underline;
   color: #000;
+}
+
+.project-items {
+  display:flex;
+  flex-wrap: wrap;
 }
