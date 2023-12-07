@@ -15,16 +15,17 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'name',
-            'tech_stack:ntext',
-            'description:ntext',
-            'start_date',
-            'end_date',
-        ],
-    ]) ?>
+  <div class="project-view__dates">
+    <?= $model->start_date . ' ' . Yii::t('app', 'to') . ' ' . $model->end_date; ?>
+  </div>
+
+  <div class="project-view__tech-stack">
+    <span class="fw-bold"><?= Yii::t('app', 'Tech stack'); ?>: </span>
+    <?= $model->tech_stack; ?>
+  </div>
+
+  <div class="project-view__description">
+    <?= $model->description ?>
+  </div>
 
 </div>

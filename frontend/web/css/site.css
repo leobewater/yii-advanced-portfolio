@@ -145,3 +145,7 @@ a.desc:after {
   display:flex;
   flex-wrap: wrap;
 }
+
+.project-view__dates, .project-view__tech-stack, .project-view__description {
+  margin-bottom: 16px;
+}
