@@ -60,6 +60,9 @@ class ProjectController extends Controller
     {
         $dataProvider = new ActiveDataProvider([
           'query' => Testimonial::find()->where(['project_id' => $id]),
+          'pagination' => [
+            'pageSize' => 1,
+          ]
         ]);
 
         return $this->render('view', [
