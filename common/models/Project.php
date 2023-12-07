@@ -191,7 +191,7 @@ class Project extends \yii\db\ActiveRecord
       return array_map(function($projectImage){
         return Html::img($projectImage->file->absoluteUrl(), [
           'alt' => $this->name,
-          'class' => 'project-view__carousel-images'
+          'class' => 'project-view__carousel-image'
         ]);
       }, $this->images);
     }
