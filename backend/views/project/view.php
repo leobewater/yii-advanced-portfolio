@@ -68,8 +68,8 @@ $this->params['breadcrumbs'][] = $this->title;
             //   'value' => function(Project $model) {
             //     $html = "";
             //     foreach($model->testimonials as $testimonial){
-            //       $label = $testimonial->title . 
-            //       ' | ' . $testimonial->customer_name . 
+            //       $label = $testimonial->title .
+            //       ' | ' . $testimonial->customer_name .
             //       ' | ' . $testimonial->rating;
             //       $html .= '<div>' . Html::a($label, ['testimonial/view', 'id' => $testimonial->id]) . '</div>';
             //     }
@@ -79,13 +79,19 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
     
-    <h2><?= Yii::t('app', 'Testimonials');?></h2>
-    <?php // load testimonial grid view ?>
+    <h2><?= Yii::t('app', 'Testimonials (' . count($model->testimonials)) . ')'?></h2>
+
+    <?php // use testimonial grid view?>
     <?= $this->render('/testimonial/_gridview', [
             'searchModel' => $searchModel,
             'dataProvider' =>  $dataProvider,
             'projects' => $projects,
             'isProjectColumnVisible' => false,
-        ]); 
+        ]);
     ?>
+
+    <?php // Loop each link manually ?>
+    <?php foreach($model->testimonials as $testimonial): ?>
+    <div><?= Html::a($testimonial->title, ['testimonial/view', 'id' => $testimonial->id]); ?></div>
+    <?php endforeach; ?>
 </div>
