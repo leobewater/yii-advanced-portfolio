@@ -12,12 +12,15 @@ $this->title = Yii::$app->name . ' - My Portfolio';
         <div class="container-fluid py-5 text-center">
 
             <?= Html::img('@web/images/astronaut.png', [
-                  'alt' => Yii::t('app', 'My profile photo')
+                  'alt' => Yii::t('app', 'My profile photo'),
+                  'class' => 'site-index__photo'
                 ]); 
             ?>
+
+            <h1 class="site-index__h1"><?= Yii::t('app', 'Hi, my name is Luis'); ?></h1>
             
-            <h1 class="display-4">Frontend!</h1>
-            <p class="fs-5 fw-light">You have successfully created your Yii-powered application.</p>
+            <p class="lead"><?= Yii::t('app', 'You have successfully created your Yii-powered application.'); ?></p>
+
             <p><a class="btn btn-lg btn-success" href="https://www.yiiframework.com">Get started with Yii</a></p>
         </div>
     </div>

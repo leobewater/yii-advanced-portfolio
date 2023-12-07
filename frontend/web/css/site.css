@@ -101,3 +101,19 @@ a.desc:after {
 {
     text-decoration: none;
 }
+
+.site-index__photo {
+  width: 100%;
+  max-width: 400px;
+}
+
+.site-index__h1 {
+  font-size:2rem;
+  font-weight:300;
+}
+
+@media(min-width:768px) {
+  .site-index__h1 {
+    font-size:3rem;
+  }
+}
