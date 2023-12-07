@@ -6,6 +6,7 @@ use yii\widgets\DetailView;
 
 /** @var yii\web\View $this */
 /** @var common\models\Project $model */
+/** @var boolean $isProjectColumnVisible */
 
 $this->title = $model->name;
 $this->params['breadcrumbs'][] = ['label' => Yii::t('app', 'Projects'), 'url' => ['index']];
@@ -78,6 +79,7 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
     ]) ?>
     
+    <h2><?= Yii::t('app', 'Testimonials');?></h2>
     <?php // load testimonial grid view ?>
     <?= $this->render('/testimonial/_gridview', [
             'searchModel' => $searchModel,

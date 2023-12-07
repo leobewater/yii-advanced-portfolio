@@ -55,9 +55,11 @@ use yii\grid\GridView;
         'rating',
         [
             'class' => ActionColumn::class,
-            'urlCreator' => function ($action, Testimonial $model, $key, $index, $column) {
-                return Url::toRoute([$action, 'id' => $model->id]);
-             }
+            // instead of using the urlCreator you can simply use the controller properties to fix the view, edit, delete links
+            'controller' => 'testimonial',
+            // 'urlCreator' => function ($action, Testimonial $model, $key, $index, $column) {
+            //     return Url::toRoute(['testimonial/'. $action, 'id' => $model->id]);
+            //  }
         ],
     ],
 ]); ?>
