@@ -56,7 +56,7 @@ class Post extends \yii\db\ActiveRecord
         ];
     }
 
-    // handle slug creation
+    // handle slug creation and timestamp
     public function behaviors()
     {
       return [
