@@ -42,4 +42,5 @@ Repo: https://github.com/lmsmartins/portfolio-advanced
 
 # Authentication
 > php yii migrate --migrationPath=@yii/rbac/migrations
+> php yii migrate/create init_rbac
 ```
