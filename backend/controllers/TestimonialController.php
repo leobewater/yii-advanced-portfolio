@@ -26,13 +26,13 @@ class TestimonialController extends Controller
         return array_merge(
             parent::behaviors(),
             [
-                // block guest access
+                // block guest access and allow users with manageTestimonials permission
                 'access' => [
                   'class' => AccessControl::class,
                   'rules' => [
                       [
                           'allow' => true,
-                          'roles' => ['@'],
+                          'roles' => ['manageTestimonials'],
                       ],
                   ],
                 ],

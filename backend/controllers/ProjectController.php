@@ -27,14 +27,19 @@ class ProjectController extends Controller
         return array_merge(
             parent::behaviors(),
             [
-                // block guest access
+                // block guest access and allow users with manageProjects permission
                 'access' => [
                   'class' => AccessControl::class,
                   'rules' => [
-                      [
-                          'allow' => true,
-                          'roles' => ['@'],
-                      ],
+                    [
+                      'actions' => ['view'],
+                      'allow' => true,
+                      'roles' => ['viewProject']
+                    ],
+                    [
+                        'allow' => true,
+                        'roles' => ['manageProjects'],
+                    ],
                   ],
                 ],
                 'verbs' => [

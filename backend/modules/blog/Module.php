@@ -32,13 +32,13 @@ class Module extends \yii\base\Module
         return array_merge(
             parent::behaviors(),
             [
-                // block guest access at module level
+                // block guest access at module level only allow users with manageBlog permission
                 'access' => [
                   'class' => AccessControl::class,
                   'rules' => [
                       [
                           'allow' => true,
-                          'roles' => ['@'],
+                          'roles' => ['manageBlog'],
                       ],
                   ],
                 ],
