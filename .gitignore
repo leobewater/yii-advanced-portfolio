@@ -43,4 +43,4 @@ phpunit.phar
 /backend/web/robots.txt
 
 # deployment
-.env
+#.env
