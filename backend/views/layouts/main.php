@@ -40,9 +40,21 @@ AppAsset::register($this);
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
     }     
-    $menuItems[] = ['label' => Yii::t('app','Projects'), 'url' => ['/project/index']];
-    $menuItems[] = ['label' => Yii::t('app','Testimonials'), 'url' => ['/testimonial/index']];
-    $menuItems[] = ['label' => Yii::t('app','Blog Posts'), 'url' => ['/blog/post/index']];
+    $menuItems[] = [
+      'label' => Yii::t('app','Projects'),
+      'url' => ['/project/index'],
+      'visible' => Yii::$app->user->can('manageProjects')
+    ];
+    $menuItems[] = [
+      'label' => Yii::t('app','Testimonials'),
+      'url' => ['/testimonial/index'],
+      'visible' => Yii::$app->user->can('manageTestimonials')
+    ];
+    $menuItems[] = [
+      'label' => Yii::t('app','Blog Posts'),
+      'url' => ['/blog/post/index'],
+      'visible' => Yii::$app->user->can('manageBlog')
+    ];
 
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav me-auto mb-2 mb-md-0'],

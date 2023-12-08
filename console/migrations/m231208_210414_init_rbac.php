@@ -27,7 +27,7 @@ class m231208_210414_init_rbac extends Migration
       $manageBlog->description = 'Manage blog (full access)';
       $auth->add($manageBlog);
 
-      $viewProject = $auth->createPermission('viewProject');
+      $viewProject = $auth->createPermission('viewProject'); // view individual project
       $viewProject->description = 'Project actionView';
       $auth->add($viewProject);
 
