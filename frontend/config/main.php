@@ -46,6 +46,9 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+              // use post slug instead of id
+              'blog/post/<slug>' => 'blog/post/view',
+
               // redirect blog to
               'blog' => 'blog/post/index',
             ],
