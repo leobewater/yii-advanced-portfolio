@@ -36,4 +36,7 @@ Repo: https://github.com/lmsmartins/portfolio-advanced
 
 > php yii migrate/create add_path_url_columns_to_file_table --fields="path_url:string"
 > php yii migrate/create fix_file_foreign_key_in_tersimonial_table
+
+# Blog
+> php yii migrate/create create_post_table --fields="title:string:notNull,body:text:notNull,slug:text:notNull,is_published:boolean:notNull,created_at:bigInteger:notNull,updated_at:bigInteger:notNull"
 ```
