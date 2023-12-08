@@ -46,6 +46,8 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+              // set up post url
+              'blog' => 'blog/post/index',
             ],
         ],
     ],
