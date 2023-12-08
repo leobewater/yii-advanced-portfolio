@@ -179,3 +179,7 @@ a.desc:after {
   margin-right: 10px;
   border-radius: 50%;
 }
+
+.post {
+  margin-bottom: 8px;
+}
