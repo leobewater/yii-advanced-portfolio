@@ -15,6 +15,10 @@ return [
         // Append timestamp when loading css files in FE and BE
         'assetManager' => [
           'appendTimestamp' => true
+        ],
+        // Auth
+        'authManager' => [
+          'class' => 'yii\rbac\DbManager',
         ]
     ],
 ];

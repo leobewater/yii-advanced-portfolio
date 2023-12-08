@@ -39,4 +39,7 @@ Repo: https://github.com/lmsmartins/portfolio-advanced
 
 # Blog
 > php yii migrate/create create_post_table --fields="title:string:notNull,body:text:notNull,slug:text:notNull,is_published:boolean:notNull,created_at:bigInteger:notNull,updated_at:bigInteger:notNull"
+
+# Authentication
+> php yii migrate --migrationPath=@yii/rbac/migrations
 ```
