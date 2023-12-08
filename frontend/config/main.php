@@ -46,7 +46,7 @@ return [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-              // set up post url
+              // redirect blog to
               'blog' => 'blog/post/index',
             ],
         ],
